@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3180760351904933455}
   - component: {fileID: 6914477410864993147}
   - component: {fileID: 1485419720450530143}
+  - component: {fileID: 6862159212169328498}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -101,6 +102,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6862159212169328498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4006363592321004926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 0
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &4233622806386462996
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,6 +134,8 @@ GameObject:
   - component: {fileID: 4233622806386462994}
   - component: {fileID: 4233622806386462993}
   - component: {fileID: 4233622806386462992}
+  - component: {fileID: 735822562}
+  - component: {fileID: 4030666342221371700}
   m_Layer: 0
   m_Name: "\u77F3\u982D\u4EBA"
   m_TagString: Untagged
@@ -232,7 +251,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &4233622806386462995
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -270,6 +289,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 4233622806386462993}
   - {fileID: 4233622806386462992}
+  - {fileID: 4030666342221371700}
+  - {fileID: 6862159212169328498}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -307,9 +328,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
+  m_SynchronizeAngularVelocity: 1
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &735822562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4233622806386462996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3bd7003f1395804186c179bfc46e084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3.5
+  groundOffSet: {x: 0, y: -0.65, z: 0}
+  groundSize: {x: 0.8, y: 0.1, z: 0}
+  jump: 500
+--- !u!114 &4030666342221371700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4233622806386462996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &7860823209008176669
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,7 +375,7 @@ GameObject:
   - component: {fileID: 6270845659103202540}
   - component: {fileID: 7010384535148053780}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: "\u540D\u7A31\u4ECB\u9762"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -42,7 +42,14 @@ namespace Ben
 
             btnLeaveRoom.onClick.AddListener(LeaveRoom);
 
+            btnStartGame.onClick.AddListener(()=>photonView.RPC("RPCStartGame",RpcTarget.All));
+
             PhotonNetwork.ConnectUsingSettings();
+        }
+
+        [PunRPC] private void RPCStartGame()
+        {
+            PhotonNetwork.LoadLevel("遊戲進行場景");
         }
 
         private void GetLobbyObjectAndEvent()
@@ -56,7 +63,11 @@ namespace Ben
 
             groupMain = GameObject.Find("畫布主要").GetComponent<CanvasGroup>();
 
-            inputFieldPlayerName.onEndEdit.AddListener((input) => namePlayer = input);
+            inputFieldPlayerName.onEndEdit.AddListener((input) =>
+            {
+                namePlayer = input;
+                PhotonNetwork.NickName = namePlayer;
+            });
             inputFieldJoinRoomName.onEndEdit.AddListener((input) => nameJoinRoom = input);
 
             btnCreateRoom.onClick.AddListener(CreateRoom);
