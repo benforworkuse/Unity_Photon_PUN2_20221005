@@ -49,6 +49,7 @@ namespace Ben
 
         [PunRPC] private void RPCStartGame()
         {
+            PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.LoadLevel("遊戲進行場景");
         }
 

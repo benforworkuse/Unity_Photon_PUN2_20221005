@@ -1,7 +1,9 @@
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using Cinemachine;
+using TMPro;
 
 namespace Ben
 {
@@ -17,6 +19,12 @@ namespace Ben
         private string parWalk = "開關走路";
         private bool isGround;
         private Transform childCanvas;
+        private TextMeshProUGUI textProp;
+        private int score;
+        private int goalScore = 10;
+        private CanvasGroup groupGame;
+        private TextMeshProUGUI textWinner;
+        private Button btnBackToLobby;
 
         private void Awake()
         {
@@ -27,6 +35,20 @@ namespace Ben
             if (!photonView.IsMine) enabled = false;
 
             photonView.RPC("RPCUpdateName", RpcTarget.All);
+
+            textProp = transform.Find("Canvas/道具得分").GetComponent<TextMeshProUGUI>();
+            groupGame = GameObject.Find("畫布遊戲介面").GetComponent<CanvasGroup>();
+            textWinner = GameObject.Find("勝利者").GetComponent<TextMeshProUGUI>();
+
+            btnBackToLobby = GameObject.Find("返回遊戲大廳").GetComponent<Button>();
+            btnBackToLobby.onClick.AddListener(()=>
+            {
+                if (photonView.IsMine)
+                {
+                    PhotonNetwork.LeaveRoom();
+                    PhotonNetwork.LoadLevel("遊戲場景");
+                }
+            });
         }
 
         private void Start()
@@ -39,13 +61,16 @@ namespace Ben
             Move();
             CheckGround();
             Jump();
+            BackToScene();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.name.Contains("掉落"))
             {
-                PhotonNetwork.Destroy(collision.gameObject);
+                Destroy(collision.gameObject);
+                textProp.text = $"分數: {++score}";
+                if (score >= goalScore) Win();
             }
         }
 
@@ -84,6 +109,32 @@ namespace Ben
             {
                 rig.AddForce(new Vector2(0, jump));
             }
+        }
+
+        private void BackToScene()
+        {
+            if (transform.position.y < -40)
+            {
+                rig.velocity = Vector3.zero;
+                transform.position = new Vector3(Random.Range(-5f, 5f), 6f, 0);
+            }
+        }
+
+        private void Win()
+        {
+            groupGame.alpha = 1;
+            groupGame.interactable = true;
+            groupGame.blocksRaycasts = true;
+
+            textWinner.text = "獲勝玩家: " + photonView.Owner.NickName;
+            DestoryObjects();
+        }
+
+        private void DestoryObjects()
+        {
+            GameObject [] props = GameObject.FindGameObjectsWithTag("掉落物");
+            for (int i = 0; i < props.Length; i++) Destroy(props[i]);
+            Destroy(FindObjectOfType<SpawnProp>().gameObject);
         }
     }
 }

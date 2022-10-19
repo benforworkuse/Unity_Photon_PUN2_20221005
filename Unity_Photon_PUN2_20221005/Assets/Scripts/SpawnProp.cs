@@ -12,7 +12,10 @@ namespace Ben
 
         private void Awake()
         {
-            InvokeRepeating("Spawn",0,intervalSpawn);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                InvokeRepeating("Spawn", 0, intervalSpawn);
+            }
         }
 
         private void Spawn()
